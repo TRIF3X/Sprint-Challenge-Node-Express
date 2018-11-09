@@ -4,7 +4,7 @@
   "description": "- Please open the `Review.md` file and answer the questions.\r - Use Node.js and Express to design and build an API that performs CRUD operations on **projects** and **actions**.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node index.js",
     "server": "nodemon"
   },
   "repository": {

@@ -1,10 +1,8 @@
 const express = require('express')
 const server = express();
 server.use(express.json());
+const projectRoutes = require('../projectModel/projectModelRoutes.js')
 
-server.get('/', (req, res) => {
-    res.send('homies')
-})
-
+server.use('/', projectRoutes)
 
 module.exports = server;

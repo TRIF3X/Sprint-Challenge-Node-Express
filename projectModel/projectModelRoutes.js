@@ -28,4 +28,48 @@ router.get('/project/:id', (req,res) => {
         })
 })
 
+router.post('/', (req, res) => {
+    if(!req.body.name || !req.body.description) {
+        res.status(400).json({ message: 'Please provide a name and description' })
+    } else {
+        proDb.insert(req.body)
+            .then(project => {
+                res.status(201).json(project)
+            })
+            .catch(err => {
+                res.status(500).json({ message: 'project can not be added at this time'})
+            })
+    }
+})
+
+router.put('/:id', (req, res) => {
+    const { id } = req.params
+    if(!req.body.name || !req.body.description) {
+        res.status(400).json({ message: 'Please provide a name and description' })
+    } else {
+        proDb.update(id, req.body) 
+            .then(project => {
+                res.status(201).json(req.body)
+            })
+            .catch(err => {
+                res.status(500).json({ message: 'project can not be updated at this time'})
+            })
+    }
+})
+
+router.delete('/:id', (req, res) => {
+    const {id} = req.params
+        proDb.remove(id)
+        .then(project => {
+            if(project) {
+             res.status(200).json({ message: `deleted project with id:${req.params.id}` })
+            } else {
+             res.status(404).json({ message: `project with id:${req.params.id} does not exist` })
+            }
+         })
+         .catch(err => {
+             res.status(500).json({ message: 'Error deleting project from database' })
+         })
+})
+
 module.exports = router;

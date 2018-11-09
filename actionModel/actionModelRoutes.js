@@ -15,8 +15,8 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     const action = req.body
-    if(!req.body.project_id || !req.body.description || !req.body.notes) {
-        res.status(400).json({ message: 'Please provide a project id, a description, and notes' })
+    if(!req.body.project_id || !req.body.description || !req.body.notes || req.body.description.length > 128) {
+        res.status(400).json({ message: 'Please provide a project id, a description, and notes, or your desription is longer than 128 charecters.' })
     } else {
        actDb.insert(action)
         .then(action => {
@@ -30,8 +30,8 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
     const { id } = req.params
-    if(!req.body.project_id || !req.body.description || !req.body.notes) {
-        res.status(400).json({ message: 'Please provide a project id, a description, and notes' })
+    if(!req.body.project_id || !req.body.description || !req.body.notes || req.body.description.length > 128) {
+        res.status(400).json({ message: 'Please provide a project id, a description, and notes, or your desription is longer than 128 charecters.' })
     } else {
         actDb.update(id, req.body) 
             .then(project => {

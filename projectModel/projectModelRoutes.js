@@ -29,8 +29,8 @@ router.get('/project/:id', (req,res) => {
 })
 
 router.post('/', (req, res) => {
-    if(!req.body.name || !req.body.description) {
-        res.status(400).json({ message: 'Please provide a name and description' })
+    if(!req.body.name || !req.body.description || req.body.name.length > 128) {
+        res.status(400).json({ message: 'Please provide a name and description, or your name is greater than 128 charecters.' })
     } else {
         proDb.insert(req.body)
             .then(project => {
@@ -44,8 +44,8 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
     const { id } = req.params
-    if(!req.body.name || !req.body.description) {
-        res.status(400).json({ message: 'Please provide a name and description' })
+    if(!req.body.name || !req.body.description || req.body.name.length > 128) {
+        res.status(400).json({ message: 'Please provide a name and description, or your name is greater than 128 charecters.' })
     } else {
         proDb.update(id, req.body) 
             .then(project => {
